@@ -1,6 +1,6 @@
 // resources/js/Pages/Dashboard/Professor.jsx
 import { useState } from 'react';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Head, Link, router, usePage } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
@@ -71,7 +71,7 @@ export default function ProfessorDashboard() {
                             </p>
                         </div>
                         <Link
-                            href={route('dashboard')}
+                            href={route('events.create')}
                             className="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl px-5 py-2.5 text-sm font-medium transition-all duration-200 self-start"
                         >
                             <PlusIcon className="h-4 w-4" />
@@ -152,7 +152,11 @@ export default function ProfessorDashboard() {
                                                 <ClipboardDocumentIcon className="h-4 w-4" />
                                                 {t('dashboard.professor.copyLink')}
                                             </Button>
-                                            <Button variant="outline" size="sm">
+                                            <Button
+                                                variant="outline"
+                                                size="sm"
+                                                onClick={() => router.visit(route('events.show', event.code))}
+                                            >
                                                 <EyeIcon className="h-4 w-4" />
                                                 {t('dashboard.professor.viewSubmissions')}
                                             </Button>
@@ -172,7 +176,11 @@ export default function ProfessorDashboard() {
                             <p className="text-sm text-gray-500 dark:text-gray-400 mb-6 max-w-sm mx-auto">
                                 {t('dashboard.professor.empty.subtitle')}
                             </p>
-                            <Button variant="primary" size="md">
+                            <Button
+                                variant="primary"
+                                size="md"
+                                onClick={() => router.visit(route('events.create'))}
+                            >
                                 <PlusIcon className="h-4 w-4" />
                                 {t('dashboard.professor.createEvent')}
                             </Button>

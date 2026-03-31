@@ -29,7 +29,7 @@ export default function ChallengeReport() {
     const submit = (e) => {
         e.preventDefault();
         if (isExpired) return;
-        post(route('dashboard'), {
+        post(route('challenges.report.submit', challenge.id), {
             onSuccess: () => toast.success(t('success.reportSubmitted')),
         });
     };

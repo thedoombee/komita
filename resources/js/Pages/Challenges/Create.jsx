@@ -21,7 +21,7 @@ export default function CreateChallenge() {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('dashboard'), {
+        post(route('challenges.store'), {
             onSuccess: () => toast.success(t('success.challengeCreated')),
         });
     };

@@ -19,7 +19,7 @@ export default function CreateEvent() {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('dashboard'), {
+        post(route('events.store'), {
             onSuccess: () => toast.success(t('success.eventCreated')),
         });
     };

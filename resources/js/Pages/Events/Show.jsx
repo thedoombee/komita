@@ -34,7 +34,7 @@ export default function ShowEvent() {
     const submit = (e) => {
         e.preventDefault();
         if (isExpired || !user) return;
-        post(route('dashboard'), {
+        post(route('events.submit', event.code), {
             onSuccess: () => toast.success(t('success.submissionSent')),
         });
     };

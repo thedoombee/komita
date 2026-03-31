@@ -1,5 +1,5 @@
 // resources/js/Pages/Dashboard.jsx
-import { Head, usePage } from '@inertiajs/react';
+import { Head, router, usePage } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { pageTransition, listContainer, listItem } from '@/config/animations';
@@ -82,7 +82,12 @@ export default function Dashboard() {
                                     {t('dashboard.date', { date: dateStr })}
                                 </p>
                             </div>
-                            <Button variant="primary" size="md" className="self-start">
+                            <Button
+                                variant="primary"
+                                size="md"
+                                className="self-start"
+                                onClick={() => router.visit(route('events.create'))}
+                            >
                                 <PlusIcon className="h-4 w-4" />
                                 {t('dashboard.professor.createEvent')}
                             </Button>
@@ -131,7 +136,11 @@ export default function Dashboard() {
                                                     <ClipboardDocumentIcon className="h-4 w-4" />
                                                     {t('dashboard.professor.copyLink')}
                                                 </Button>
-                                                <Button variant="outline" size="sm">
+                                                <Button
+                                                    variant="outline"
+                                                    size="sm"
+                                                    onClick={() => router.visit(route('events.show', event.code))}
+                                                >
                                                     <EyeIcon className="h-4 w-4" />
                                                     {t('dashboard.professor.viewSubmissions')}
                                                 </Button>
@@ -147,7 +156,11 @@ export default function Dashboard() {
                                 </div>
                                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{t('dashboard.professor.empty.title')}</h3>
                                 <p className="text-sm text-gray-500 dark:text-gray-400 mb-6 max-w-sm mx-auto">{t('dashboard.professor.empty.subtitle')}</p>
-                                <Button variant="primary" size="md">
+                                <Button
+                                    variant="primary"
+                                    size="md"
+                                    onClick={() => router.visit(route('events.create'))}
+                                >
                                     <PlusIcon className="h-4 w-4" />
                                     {t('dashboard.professor.createEvent')}
                                 </Button>
@@ -205,7 +218,11 @@ export default function Dashboard() {
                         <h2 className="text-xl font-bold text-gray-900 dark:text-white">
                             {t('dashboard.student.myChallenges')}
                         </h2>
-                        <Button variant="primary" size="sm">
+                        <Button
+                            variant="primary"
+                            size="sm"
+                            onClick={() => router.visit(route('challenges.create'))}
+                        >
                             <PlusIcon className="h-4 w-4" />
                             {t('challenge.create.title')}
                         </Button>
@@ -236,7 +253,12 @@ export default function Dashboard() {
                                                 </div>
                                             </div>
                                             <div className="mt-auto pt-4">
-                                                <Button variant="outline" size="sm" className="w-full">
+                                                <Button
+                                                    variant="outline"
+                                                    size="sm"
+                                                    className="w-full"
+                                                    onClick={() => router.visit(route('challenges.report', challenge.id))}
+                                                >
                                                     <DocumentTextIcon className="h-4 w-4" />
                                                     {t('dashboard.student.submitReport')}
                                                 </Button>
@@ -253,7 +275,11 @@ export default function Dashboard() {
                             </div>
                             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{t('dashboard.student.empty.title')}</h3>
                             <p className="text-sm text-gray-500 dark:text-gray-400 mb-6 max-w-sm mx-auto">{t('dashboard.student.empty.subtitle')}</p>
-                            <Button variant="primary" size="md">
+                            <Button
+                                variant="primary"
+                                size="md"
+                                onClick={() => router.visit(route('challenges.create'))}
+                            >
                                 <PlusIcon className="h-4 w-4" />
                                 {t('dashboard.student.empty.cta')}
                             </Button>

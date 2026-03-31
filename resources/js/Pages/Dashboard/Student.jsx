@@ -1,5 +1,5 @@
 // resources/js/Pages/Dashboard/Student.jsx
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Head, Link, router, usePage } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { pageTransition, listContainer, listItem } from '@/config/animations';
@@ -116,7 +116,7 @@ export default function StudentDashboard() {
                             {t('dashboard.student.myChallenges')}
                         </h2>
                         <Link
-                            href={route('dashboard')}
+                            href={route('challenges.create')}
                             className="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl px-4 py-2 text-sm font-medium transition-all duration-200"
                         >
                             <PlusIcon className="h-4 w-4" />
@@ -174,6 +174,7 @@ export default function StudentDashboard() {
                                                     variant="outline"
                                                     size="sm"
                                                     className="w-full"
+                                                    onClick={() => router.visit(route('challenges.report', challenge.id))}
                                                 >
                                                     <DocumentTextIcon className="h-4 w-4" />
                                                     {t('dashboard.student.submitReport')}
@@ -196,7 +197,11 @@ export default function StudentDashboard() {
                             <p className="text-sm text-gray-500 dark:text-gray-400 mb-6 max-w-sm mx-auto">
                                 {t('dashboard.student.empty.subtitle')}
                             </p>
-                            <Button variant="primary" size="md">
+                            <Button
+                                variant="primary"
+                                size="md"
+                                onClick={() => router.visit(route('challenges.create'))}
+                            >
                                 <PlusIcon className="h-4 w-4" />
                                 {t('dashboard.student.empty.cta')}
                             </Button>
