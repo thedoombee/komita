@@ -1,50 +1,68 @@
-import PrimaryButton from '@/Components/PrimaryButton';
-import GuestLayout from '@/Layouts/GuestLayout';
+// resources/js/Pages/Auth/VerifyEmail.jsx
 import { Head, Link, useForm } from '@inertiajs/react';
+import { useTranslation } from 'react-i18next';
+import { motion } from 'framer-motion';
+import { pageTransition } from '@/config/animations';
+import GuestLayout from '@/Components/GuestLayout';
+import Button from '@/Components/Button';
+import { EnvelopeIcon } from '@heroicons/react/24/outline';
 
 export default function VerifyEmail({ status }) {
+    const { t } = useTranslation();
     const { post, processing } = useForm({});
 
     const submit = (e) => {
         e.preventDefault();
-
         post(route('verification.send'));
     };
 
     return (
         <GuestLayout>
-            <Head title="Email Verification" />
+            <Head title={t('auth.login.email')} />
 
-            <div className="mb-4 text-sm text-gray-600">
-                Thanks for signing up! Before getting started, could you verify
-                your email address by clicking on the link we just emailed to
-                you? If you didn't receive the email, we will gladly send you
-                another.
-            </div>
+            <motion.div
+                initial={pageTransition.initial}
+                animate={pageTransition.animate}
+                transition={pageTransition.transition}
+                className="min-h-screen flex items-center justify-center px-4 pt-20 pb-12"
+            >
+                <div className="relative w-full max-w-md">
+                    <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-md rounded-2xl border border-white/20 dark:border-slate-700/50 shadow-sm p-8 lg:p-10 text-center">
+                        <div className="flex items-center justify-center w-16 h-16 rounded-2xl bg-indigo-50 dark:bg-indigo-950/50 mx-auto mb-5">
+                            <EnvelopeIcon className="h-8 w-8 text-indigo-600 dark:text-indigo-400" />
+                        </div>
 
-            {status === 'verification-link-sent' && (
-                <div className="mb-4 text-sm font-medium text-green-600">
-                    A new verification link has been sent to the email address
-                    you provided during registration.
+                        <Link href="/">
+                            <span className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">Komita</span>
+                        </Link>
+
+                        <p className="mt-6 text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                            {t('auth.login.subtitle')}
+                        </p>
+
+                        {status === 'verification-link-sent' && (
+                            <div className="mt-4 text-sm text-green-600 dark:text-green-400 font-medium">
+                                {t('success.profileUpdated')}
+                            </div>
+                        )}
+
+                        <div className="mt-6 flex flex-col gap-3">
+                            <Button variant="primary" size="md" loading={processing} disabled={processing} onClick={submit} className="w-full">
+                                {t('common.save')}
+                            </Button>
+
+                            <Link
+                                href={route('logout')}
+                                method="post"
+                                as="button"
+                                className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
+                            >
+                                {t('nav.logout')}
+                            </Link>
+                        </div>
+                    </div>
                 </div>
-            )}
-
-            <form onSubmit={submit}>
-                <div className="mt-4 flex items-center justify-between">
-                    <PrimaryButton disabled={processing}>
-                        Resend Verification Email
-                    </PrimaryButton>
-
-                    <Link
-                        href={route('logout')}
-                        method="post"
-                        as="button"
-                        className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    >
-                        Log Out
-                    </Link>
-                </div>
-            </form>
+            </motion.div>
         </GuestLayout>
     );
 }
